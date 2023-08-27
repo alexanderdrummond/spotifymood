@@ -17,7 +17,8 @@ const timeOfDayOptions = [
 const moodOptions = ['Happy', 'Relaxed', 'Energetic', 'Calm', 'Excited', 'Sad', 'Angry', 'Stressed', 'Anxious'];
 
 export default function Home() {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [appStarted, setAppStarted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [selectedTimeOfDay, setSelectedTimeOfDay] = useState(null);
   const [showMoodSelection, setShowMoodSelection] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
@@ -36,18 +37,15 @@ export default function Home() {
     setShowTimeOfDay(true); 
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const audioElement = document.getElementById('ambient-audio');
-      audioElement.play().then(() => {
-        setIsPlaying(true);
-      }).catch(error => {
-        console.log('Audio play failed: ', error);
-      });
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const startApp = () => {
+    setAppStarted(true);
+    const audioElement = document.getElementById('ambient-audio');
+    audioElement.play().then(() => {
+      setIsPlaying(true);
+    }).catch(error => {
+      console.log('Audio play failed: ', error);
+    });
+  };
 
   const toggleAudio = () => {
     const audioElement = document.getElementById('ambient-audio');
@@ -61,47 +59,73 @@ export default function Home() {
 
 
   return (
-    <Box style={{
-      background: "linear-gradient(45deg, #8baaaa, #ae8b9c)",
-      backgroundSize: "100% 100%",
-      animation: "AnimationName 22s ease"
-    }}>
-    <audio id="ambient-audio" loop>
-      <source src="/ambient.wav" type="audio/wav" />
-    </audio>
-    <Button onClick={toggleAudio} style={{ position: 'absolute', top: '10px', right: '10px' }}>
-      {isPlaying ? 'Mute' : 'Unmute'}
-    </Button>
-    <Center height="100vh" position="relative">
-      {showIntro && <IntroText onComplete={handleIntroComplete} />}
-      <VStack spacing={4}>
-        {showMoodSelection ? (
-          <MoodSelection moods={moodOptions} onMoodSelect={handleMoodSelect} />
-        ) : showTimeOfDay ? (
+    <Box
+      style={{
+        background: appStarted
+          ? "linear-gradient(45deg, #8baaaa, #ae8b9c)"
+          : "black",
+        backgroundSize: "100% 100%",
+        animation: "AnimationName 22s ease",
+      }}
+    >
+      <audio id="ambient-audio" loop>
+        <source src="/ambient.wav" type="audio/wav" />
+      </audio>
+      {appStarted && (
+        <Button
+          onClick={toggleAudio}
+          style={{ position: "absolute", top: "10px", right: "10px" }}
+        >
+          {isPlaying ? "Mute" : "Unmute"}
+        </Button>
+      )}
+      <Center height="100vh" position="relative">
+        {!appStarted && (
+          <VStack>
+            <Text fontSize="xl" fontWeight="bold" color="white">
+              "Where words fail, music speaks."
+            </Text>
+            <Text fontSize="xl" fontWeight="bold" color="white" mb="40px">
+              - Hans Christian Andersen
+            </Text>
+            <Button color="white" onClick={startApp}>
+              Start
+            </Button>
+          </VStack>
+        )}
+        {appStarted && (
           <>
-          <MotionBox
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 2 }}>
-    <Text fontSize="2xl" fontWeight="bold" color="white">
-        What time of day is it?
-        </Text>
-        </MotionBox>
-            <Grid templateColumns="repeat(2, 1fr)" gap={25}>
-              
-              {timeOfDayOptions.map((option, index) => (
-                <TimeOfDayCard
-                  key={index}
-                  time={option.time}
-                  imageSrc={option.imageSrc}
-                  onSelect={handleTimeOfDaySelect}
-                />
-              ))}
-            </Grid>
+            {showIntro && <IntroText onComplete={handleIntroComplete} />}
+            <VStack spacing={4}>
+              {showMoodSelection ? (
+                <MoodSelection moods={moodOptions} onMoodSelect={handleMoodSelect} />
+              ) : showTimeOfDay ? (
+                <>
+                  <MotionBox
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 2 }}
+                  >
+                    <Text fontSize="2xl" fontWeight="bold" color="white">
+                      What time of day is it?
+                    </Text>
+                  </MotionBox>
+                  <Grid templateColumns="repeat(2, 1fr)" gap={25}>
+                    {timeOfDayOptions.map((option, index) => (
+                      <TimeOfDayCard
+                        key={index}
+                        time={option.time}
+                        imageSrc={option.imageSrc}
+                        onSelect={handleTimeOfDaySelect}
+                      />
+                    ))}
+                  </Grid>
+                </>
+              ) : null}
+            </VStack>
           </>
-        ) : null}
-      </VStack>
-    </Center>
+        )}
+      </Center>
     </Box>
   );
 }
