@@ -11,60 +11,63 @@ const lines = [
 ];
 
 export default function IntroText({ onComplete }) {
-    const [currentLine, setCurrentLine] = useState(0);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    
-    const longestLine = lines.reduce((a, b) => (a.length > b.length ? a : b));
-    
-    useEffect(() => {
-      if (currentLine < lines.length) {
-        const timer = setTimeout(() => {
+  const [currentLine, setCurrentLine] = useState(0);
+  const [allLinesShown, setAllLinesShown] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    let timer;
+    if (currentLine < lines.length) {
+      timer = setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => {
           setCurrentLine((prevLine) => prevLine + 1);
-        }, 2000);
-        return () => clearTimeout(timer);
-      } else {
-        const timer = setTimeout(() => {
-          onOpen();
-          setTimeout(() => {
-            onClose();
-            onComplete();
-          }, 3000);
+          setFadeOut(false);
+        }, 1500); 
+      }, 3000);
+    } else {
+      setAllLinesShown(true);
+      timer = setTimeout(() => {
+        onOpen();
+        setTimeout(() => {
+          onClose();
+          onComplete();
         }, 3000);
-        return () => clearTimeout(timer);
-      }
-    }, [currentLine]);
-    
-    return (
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        bg="#000000"
-        opacity={isOpen ? 0 : 1}
-        transition="opacity 1s ease-in-out"
-      >
-        <Box position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
-          {lines.slice(0, currentLine).map((line, index) => (
-            <MotionBox
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <Text
-                fontSize="2xl"
-                fontWeight="bold"
-                color="white"
-                minW={[`${longestLine.length}ch`]}
-                textAlign="center"
-              >
-                {line}
-              </Text>
-            </MotionBox>
-          ))}
-        </Box>
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [currentLine]);
+
+  return (
+    <Box
+      position="absolute"
+      top="0"
+      left="0"
+      right="0"
+      bottom="0"
+      bg="#000000"
+      opacity={isOpen || allLinesShown ? 0 : 1}
+      transition={`opacity ${allLinesShown ? 3 : 1}s ease-in-out`}
+    >
+      <Box position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
+        <MotionBox
+          key={currentLine} 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5 }}
+        >
+          <Text
+            fontSize="2xl"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+          >
+            {lines[currentLine]}
+          </Text>
+        </MotionBox>
       </Box>
-    );
-  }
+    </Box>
+  );
+}

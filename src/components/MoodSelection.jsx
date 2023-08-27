@@ -43,9 +43,7 @@ const MoodSelection = ({ moods, onMoodSelect }) => {
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
     >
-      <Text fontSize="2xl" fontWeight="bold" color="white">
-        2 moods that you're in?
-      </Text>
+      <Text fontSize="2xl" fontWeight="bold" color="white">2 moods that you're in?</Text>
       <MotionBox
         templateColumns="repeat(3, 1fr)"
         gap={4}
@@ -60,7 +58,7 @@ const MoodSelection = ({ moods, onMoodSelect }) => {
             position="relative"
             bg="rgba(255, 255, 255, 0.1)"
             backdropFilter="blur(15px)"
-            boxShadow="0px 8px 20px rgba(0, 0, 0, 0.1)"
+            border={selectedMoods.includes(mood) ? '2px solid limegreen' : 'none'}
             onClick={() => handleMoodClick(mood)}
           >
             <VStack>
@@ -75,14 +73,7 @@ const MoodSelection = ({ moods, onMoodSelect }) => {
           </MotionBox>
         ))}
       </MotionBox>
-      <Button
-        colorScheme="green"
-        isDisabled={selectedMoods.length !== 2}
-        onClick={() => {
-        }}
-      >
-        Continue
-      </Button>
+      <Button colorScheme="green" isDisabled={selectedMoods.length !== 2} onClick={() => {}}>Continue</Button>
     </MotionVStack>
   );
 };

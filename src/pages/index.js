@@ -9,10 +9,10 @@ const MotionBox = motion(Box);
 
 
 const timeOfDayOptions = [
-  { time: 'Morning', imageSrc: 'twilight-beach.jpg' },
-  { time: 'Afternoon', imageSrc: 'twilight-beach.jpg' },
-  { time: 'Evening', imageSrc: 'twilight-beach.jpg' },
-  { time: 'Night', imageSrc: 'twilight-beach.jpg' },
+  { time: 'Morning', imageSrc: 'window.jpg' },
+  { time: 'Afternoon', imageSrc: 'citu_panoramas-01.jpg' },
+  { time: 'Evening', imageSrc: 'citu_panoramas-02.jpg' },
+  { time: 'Night', imageSrc: 'citu_panoramas-03.jpg' },
 ];
 const moodOptions = ['Happy', 'Relaxed', 'Energetic', 'Calm', 'Excited', 'Sad', 'Angry', 'Stressed', 'Anxious'];
 
@@ -23,6 +23,8 @@ export default function Home() {
   const [showMoodSelection, setShowMoodSelection] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const [showTimeOfDay, setShowTimeOfDay] = useState(false);
+  const [showGenreSelection, setShowGenreSelection] = useState(false);
+
 
   const handleTimeOfDaySelect = (timeOfDay) => {
     setSelectedTimeOfDay(timeOfDay);
@@ -34,7 +36,9 @@ export default function Home() {
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    setShowTimeOfDay(true); 
+    requestAnimationFrame(() => {
+      setShowTimeOfDay(true);
+    });
   };
 
   const startApp = () => {
@@ -104,7 +108,7 @@ export default function Home() {
                   <MotionBox
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 2 }}
+                    transition={{ duration: 1 }}
                   >
                     <Text fontSize="2xl" fontWeight="bold" color="white">
                       What time of day is it?
