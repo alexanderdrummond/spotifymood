@@ -16,6 +16,9 @@ const ImagePreloader = ({ imageUrls }) => {
 
 const imageUrls = [
   'twilight-beach.jpg',
+ 'citu_panoramas-01.jpg',
+ 'citu_panoramas-02.jpg' ,
+ 'citu_panoramas-03.jpg',
 ];
 
 export default function App({ Component, pageProps }) {

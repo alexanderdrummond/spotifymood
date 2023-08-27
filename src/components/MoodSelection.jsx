@@ -73,7 +73,7 @@ const MoodSelection = ({ moods, onMoodSelect }) => {
           </MotionBox>
         ))}
       </MotionBox>
-      <Button colorScheme="green" isDisabled={selectedMoods.length !== 2} onClick={() => {}}>Continue</Button>
+      <Button bg="green.400" isDisabled={selectedMoods.length !== 2} onClick={() => {}}>Continue</Button>
     </MotionVStack>
   );
 };

@@ -2,6 +2,7 @@ import { VStack, Text, Center, Grid, Box, Button } from '@chakra-ui/react';
 import TimeOfDayCard from '../components/TimeOfDayCard';
 import MoodSelection from '../components/MoodSelection';
 import IntroText from '../components/IntroText';
+import InfoPanel from '../components/InfoPanel';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
@@ -24,6 +25,7 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const [showTimeOfDay, setShowTimeOfDay] = useState(false);
   const [showGenreSelection, setShowGenreSelection] = useState(false);
+  const [showInfoPanel, setShowInfoPanel] = useState(false);
 
 
   const handleTimeOfDaySelect = (timeOfDay) => {
@@ -37,7 +39,7 @@ export default function Home() {
   const handleIntroComplete = () => {
     setShowIntro(false);
     requestAnimationFrame(() => {
-      setShowTimeOfDay(true);
+      setShowInfoPanel(true);
     });
   };
 
@@ -93,13 +95,14 @@ export default function Home() {
               - Hans Christian Andersen
             </Text>
             <Button backgroundColor="white" color="black" onClick={startApp}>
-  Start
-</Button>
+              Start
+            </Button>
           </VStack>
         )}
         {appStarted && (
           <>
             {showIntro && <IntroText onComplete={handleIntroComplete} />}
+            {showInfoPanel && <InfoPanel onStartExperience={() => { setShowInfoPanel(false); setShowTimeOfDay(true); }} />}
             <VStack spacing={4}>
               {showMoodSelection ? (
                 <MoodSelection moods={moodOptions} onMoodSelect={handleMoodSelect} />
@@ -132,4 +135,5 @@ export default function Home() {
       </Center>
     </Box>
   );
+  
 }
