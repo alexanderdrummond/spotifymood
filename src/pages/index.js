@@ -88,9 +88,9 @@ export default function Home() {
             <Text fontSize="xl" fontWeight="bold" color="white" mb="40px">
               - Hans Christian Andersen
             </Text>
-            <Button color="white" onClick={startApp}>
-              Start
-            </Button>
+            <Button backgroundColor="white" color="black" onClick={startApp}>
+  Start
+</Button>
           </VStack>
         )}
         {appStarted && (
