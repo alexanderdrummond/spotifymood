@@ -58,7 +58,6 @@ const MoodSelection = ({ moods, onMoodSelect, onContinue }) => {
             position="relative"
             bg="rgba(255, 255, 255, 0.1)"
             backdropFilter="blur(15px)"
-            boxShadow={selectedMoods.includes(mood) ? '5px 5px 15px rgba(46, 139, 87, 0.35)' : 'none'}
             onClick={() => handleMoodClick(mood)}
           >
             <VStack>

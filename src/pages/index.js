@@ -19,6 +19,7 @@ const timeOfDayOptions = [
   { time: 'Evening', imageSrc: 'evening.svg' },
   { time: 'Night', imageSrc: 'night.svg' },
 ];
+
 const moodOptions = ['Happy', 'Relaxed', 'Energetic', 'Calm', 'Excited', 'Sad', 'Angry', 'Stressed', 'Anxious'];
 const genreOptions = ['Rock', 'Jazz', 'Classical', 'Electronic', 'HipHop', 'Pop', 'Reggae', 'Metal', 'Blues'];
 
