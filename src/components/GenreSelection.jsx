@@ -1,34 +1,54 @@
-import { Box, IconButton } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { VStack, Text, Grid, Button, Box } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRock, faPop, faJazz, faClassical, faRap, faCountry, faReggae, faBlues, faElectronic } from '@fortawesome/free-brands-svg-icons';
+import { faGuitar, faMicrophone, faPiano, faDrum, faHeadphones, faRecordVinyl, faMusic, faVolumeUp, faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 
-const genreOptions = [
-  { genre: 'Rock', icon: faRock },
-  { genre: 'Pop', icon: faPop },
-  { genre: 'Jazz', icon: faJazz },
-  { genre: 'Classical', icon: faClassical },
-  { genre: 'Rap', icon: faRap },
-  { genre: 'Country', icon: faCountry },
-  { genre: 'Reggae', icon: faReggae },
-  { genre: 'Blues', icon: faBlues },
-  { genre: 'Electronic', icon: faElectronic },
-];
+const MotionVStack = motion(VStack);
+const MotionBox = motion(Grid);
 
-export default function GenreSelection({ onGenreSelect }) {
-  const handleGenreSelect = (genre) => {
-    onGenreSelect(genre);
+const genreIcons = {
+  Rock: faGuitar,
+  Jazz: faMicrophone,
+  Classical: faPiano,
+  Electronic: faHeadphones,
+  HipHop: faRecordVinyl,
+  Pop: faMusic,
+  Reggae: faVolumeUp,
+  Metal: faCompactDisc,
+  Blues: faDrum,
+};
+
+const GenreSelection = ({ genres, onGenreSelect, handleContinueToGenre }) => {
+  const [selectedGenres, setSelectedGenres] = useState([]);
+
+  const handleGenreClick = (genre) => {
+    let newSelectedGenres = [...selectedGenres];
+    if (newSelectedGenres.includes(genre)) {
+      newSelectedGenres = newSelectedGenres.filter(g => g !== genre);
+    } else if (newSelectedGenres.length < 2) {
+      newSelectedGenres.push(genre);
+    }
+    setSelectedGenres(newSelectedGenres);
+    onGenreSelect(newSelectedGenres);
   };
 
   return (
-    <Box>
-      {genreOptions.map((option, index) => (
-        <IconButton
-          key={index}
-          aria-label={option.genre}
-          icon={<FontAwesomeIcon icon={option.icon} />}
-          onClick={() => handleGenreSelect(option.genre)}
-        />
-      ))}
-    </Box>
+    <MotionVStack spacing={4} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -50 }} transition={{ duration: 0.5 }}>
+      <Text fontSize="2xl" fontWeight="bold" color="white">2 genres you're into?</Text>
+      <MotionBox templateColumns="repeat(3, 1fr)" gap={4} w="100%">
+        {genres.map((genre) => (
+          <MotionBox key={genre} borderRadius="md" p={4} position="relative" bg="rgba(255, 255, 255, 0.1)" backdropFilter="blur(15px)" border={selectedGenres.includes(genre) ? '2px solid limegreen' : 'none'} onClick={() => handleGenreClick(genre)}>
+            <VStack>
+              <FontAwesomeIcon icon={genreIcons[genre]} size="2x" color="white" />
+              <Text color="white">{genre}</Text>
+            </VStack>
+          </MotionBox>
+        ))}
+      </MotionBox>
+      <Button bg="green.400" isDisabled={selectedGenres.length !== 2} onClick={handleContinueToGenre}>Continue</Button>
+    </MotionVStack>
   );
-}
+};
+
+export default GenreSelection;

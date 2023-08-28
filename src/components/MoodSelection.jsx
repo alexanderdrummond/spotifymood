@@ -19,7 +19,7 @@ const moodIcons = {
   Anxious: faFlushed,
 };
 
-const MoodSelection = ({ moods, onMoodSelect }) => {
+const MoodSelection = ({ moods, onMoodSelect, onContinue }) => {
   const [selectedMoods, setSelectedMoods] = useState([]);
 
   const handleMoodClick = (mood) => {
@@ -73,7 +73,7 @@ const MoodSelection = ({ moods, onMoodSelect }) => {
           </MotionBox>
         ))}
       </MotionBox>
-      <Button bg="green.400" isDisabled={selectedMoods.length !== 2} onClick={() => {}}>Continue</Button>
+      <Button bg="green.400" isDisabled={selectedMoods.length !== 2} onClick={onContinue}>Continue</Button>
     </MotionVStack>
   );
 };
