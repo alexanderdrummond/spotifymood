@@ -80,8 +80,9 @@ const InfoPanel = ({ onStartExperience }) => {
             </Popover>
             <Button
               backgroundColor="green.400"
-              leftIcon={<Icon as={FaPlay} />}
+              leftIcon={<Icon color="white" as={FaPlay} />}
               onClick={onStartExperience}
+              textColor="white"
             >
               Start Experience
             </Button>
