@@ -12,9 +12,9 @@ const moodIcons = {
   Relaxed: faMeh,
   Energetic: faGrinStars,
   Calm: faTired,
-  Excited: faAngry,
+  Excited: faGrinStars,
   Sad: faFrown,
-  Angry: faGrimace,
+  Angry: faAngry,
   Stressed: faDizzy,
   Anxious: faFlushed,
 };
@@ -58,7 +58,7 @@ const MoodSelection = ({ moods, onMoodSelect, onContinue }) => {
             position="relative"
             bg="rgba(255, 255, 255, 0.1)"
             backdropFilter="blur(15px)"
-            border={selectedMoods.includes(mood) ? '2px solid limegreen' : 'none'}
+            boxShadow={selectedMoods.includes(mood) ? '5px 5px 15px rgba(46, 139, 87, 0.35)' : 'none'}
             onClick={() => handleMoodClick(mood)}
           >
             <VStack>

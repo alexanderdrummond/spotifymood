@@ -19,7 +19,7 @@ const genreIcons = {
   Blues: faDrum,
 };
 
-const GenreSelection = ({ genres, onGenreSelect, handleContinueToGenre }) => {
+const GenreSelection = ({ genres, onGenreSelect }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
 
   const handleGenreClick = (genre) => {
@@ -30,7 +30,6 @@ const GenreSelection = ({ genres, onGenreSelect, handleContinueToGenre }) => {
       newSelectedGenres.push(genre);
     }
     setSelectedGenres(newSelectedGenres);
-    onGenreSelect(newSelectedGenres);
   };
 
   return (
@@ -46,7 +45,11 @@ const GenreSelection = ({ genres, onGenreSelect, handleContinueToGenre }) => {
           </MotionBox>
         ))}
       </MotionBox>
-      <Button bg="green.400" isDisabled={selectedGenres.length !== 2} onClick={handleContinueToGenre}>Continue</Button>
+      <Button bg="green.400" isDisabled={selectedGenres.length !== 2} onClick={() => {
+        onGenreSelect(selectedGenres);
+      }}>
+        Continue
+      </Button>
     </MotionVStack>
   );
 };
