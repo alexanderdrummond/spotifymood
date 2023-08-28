@@ -127,7 +127,6 @@ export default function Home() {
 
   
     const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
-    console.log(`Client ID: ${clientId}, Client Secret: ${clientSecret}`);
     const data = new URLSearchParams();
     data.append('grant_type', 'client_credentials');
   
@@ -145,7 +144,6 @@ export default function Home() {
   
       setSpotifyAccessToken(response.data.access_token);
     } catch (err) {
-      console.log('Error:', err.response ? err.response.data : err);
     }
   };
   
@@ -160,7 +158,6 @@ export default function Home() {
     })
     .then(res => {
       setFetchedPlaylists(res.data.playlists.items);
-      console.log("Fetched Playlists:", res.data.playlists.items); 
     })
     .catch(err => console.log(err));
   };

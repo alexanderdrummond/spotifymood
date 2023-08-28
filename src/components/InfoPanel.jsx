@@ -41,12 +41,13 @@ const InfoPanel = ({ onStartExperience }) => {
           <Text fontSize="md" color="white" textAlign="center">
             There's a common belief that music can not only change moods, but also change lives. Embracing that conception, this app's goal is to help you retain a positive mood or change a negative mood, assisted by music.
           </Text>
-          
+
           <HStack spacing={3}>
             <Button
               backgroundColor="blackAlpha.900"
-              leftIcon={<Icon as={FaGithub} />}
-              onClick={() => window.open('https://github.com/')}
+              leftIcon={<Icon color="white" as={FaGithub} />}
+              onClick={() => window.open('https://github.com/alexanderdrummond/spotifymood')}
+              textColor="white"
             >
               View on Github
             </Button>
@@ -54,7 +55,8 @@ const InfoPanel = ({ onStartExperience }) => {
               <PopoverTrigger>
                 <Button
                   backgroundColor="blackAlpha.900"
-                  leftIcon={<Icon as={FaInfoCircle} />}
+                  leftIcon={<Icon color="white" as={FaInfoCircle} />}
+                  textColor="white"
                 >
                   Creator Details
                 </Button>

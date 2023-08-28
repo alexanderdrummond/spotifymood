@@ -37,6 +37,7 @@ const PlaylistsDisplay = ({ playlists }) => {
                   WebkitLineClamp="2"
                   WebkitBoxOrient="vertical"
                   overflow="hidden"
+                  textColor="white"
                 >
                   {playlist.name}
                 </Text>
