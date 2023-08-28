@@ -18,10 +18,7 @@ const TimeOfDayCard = ({ time, imageSrc, onSelect }) => {
       boxShadow="0px 8px 20px rgba(0, 0, 0, 0.15)"
       borderRadius="5px"
       overflow="hidden"
-      whileHover={{
-        scale: 1.05,
-        transition: { duration: 0.3, ease: 'easeOut' },
-      }}
+      whileHover={{ scale: 1.05 }}
       onClick={() => onSelect(time)}
     >
       <Box position="relative" h="100%">
