@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 const MotionBox = motion(Box);
 
 const lines = [
-  'Music has always had an impact on human lives',
-  'It can change the way we think, act and feel',
-  'This app is your companion for a better day.',
+  'For millennia, music has impacted human life',
+  'It has changed the way we think, act and feel',
+  'Explore how music can transform and adapt to your mood',
 ];
 
 export default function IntroText({ onComplete }) {
@@ -23,7 +23,7 @@ export default function IntroText({ onComplete }) {
         setFadeOut(true);
         setTimeout(() => {
           setCurrentLine((prevLine) => prevLine + 1);
-          setFadeOut(false);
+          setFadeOut(true);
         }, 1500); 
       }, 3000);
     } else {
@@ -33,7 +33,7 @@ export default function IntroText({ onComplete }) {
         setTimeout(() => {
           onClose();
           onComplete();
-        }, 3000);
+        }, 1500);
       }, 3000);
     }
     return () => clearTimeout(timer);
