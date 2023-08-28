@@ -23,6 +23,9 @@ export default function Home() {
   const [appStarted, setAppStarted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedTimeOfDay, setSelectedTimeOfDay] = useState(null);
+  const [selectedMoods, setSelectedMoods] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [fetchedPlaylists, setFetchedPlaylists] = useState(null);
   const [showMoodSelection, setShowMoodSelection] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const [showTimeOfDay, setShowTimeOfDay] = useState(false);
@@ -37,7 +40,7 @@ export default function Home() {
   };
 
   const handleMoodSelect = (mood) => {
-  
+    setSelectedMoods(moods);
   };
 
   const handleContinueToGenre = () => {
@@ -46,6 +49,7 @@ export default function Home() {
   };
 
   const handleGenreSelect = (genres) => {
+    setSelectedGenres(genres);
   };
 
   const handleIntroComplete = () => {
